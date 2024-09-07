@@ -1,0 +1,36 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="row border rounded-5 p-3 bg-white shadow box-area">
+    <!-- Partie gauche avec image et texte -->
+    <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #4f84b5;">
+      <div class="featured-image mb-3">
+        <img src="assets/images/img1.png" class="img-fluid" alt="Image" style="width: 250px;">
+      </div>
+      <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600; text-align: center">Bienvenue dans Factur<span style="color: blue">ix</span></p>
+      <small class="text-white text-wrap text-center" style="width: 17rem; font-family: 'Courier New', Courier, monospace;">Votre satisfaction, notre objectif</small>
+    </div>
+
+    <!-- Partie droite avec le formulaire de connexion -->
+    <div class="col-md-6 right-box">
+      <div class="row align-items-center">
+        <div class="header-text mb-4">
+          <h2>Connexion</h2>
+          <p>Veuillez entrer vos informations pour vous connecter.</p>
+        </div>
+        <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+          <div class="form-group mb-3">
+            <label >Email</label>
+            <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Entrez votre email" required>
+          </div>
+          <div class="form-group mb-3">
+            <label >Mot de passe</label>
+            <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+          </div>
+          <button type="submit" style="background-color: #4f84b5" class="w-100 mb-3 btn">Connexion</button>
+          <div *ngIf="errorMessage" class="mt-3 text-danger">
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
