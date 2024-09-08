@@ -36,7 +36,7 @@ export class AuthService {
         });
         return this.http.get<any[]>(`${this.apiUrl}/users`, { headers });
   }
-    register(user: { name: string, email: string, password: string, password_confirmation: string, role: string }): Observable<any> {
+  register(user: { name: string, email: string, password: string, password_confirmation: string, role: string }): Observable<any> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json'
         });
@@ -56,5 +56,8 @@ export class AuthService {
     return !!localStorage.getItem('authToken');  // Vérifie si le token est présent
   }
 
+    deleteUser(id: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/users/${id}`);
+    }
 
 }

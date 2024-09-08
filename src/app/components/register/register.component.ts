@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
+import {User} from "../../models/user.model";
+import {filter} from "rxjs";
 
 
 @Component({
@@ -12,8 +14,11 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   errorMessage: string | null = null;
+  users: User[] = [];
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private cdRef: ChangeDetectorRef) {
+    this.loadUsers();
+  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -23,8 +28,16 @@ export class RegisterComponent implements OnInit {
       password_confirmation: ['', [Validators.required]],
       role: ['', [Validators.required]]
     });
+
   }
 
+  loadUsers(): void {
+    this.authService.getUsers().subscribe((users) => {
+      this.users = users;
+      // Forcer la détection des changements
+      this.cdRef.detectChanges();
+    });
+  }
   onSubmit(): void {
     if (this.registerForm.invalid) {
       return;
@@ -41,9 +54,8 @@ export class RegisterComponent implements OnInit {
           modal.hide();
         }
 
-        this.router.navigate(['/listeUser']).then(() => {
-          window.location.reload();
-        });
+        /*this.router.navigate(['/listeUser']);*/
+        this.loadUsers();
 
       },
       error: (error) => {

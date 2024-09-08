@@ -15,6 +15,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ResponsableTechniqueComponent } from './components/responsable-technique/responsable-technique.component';
 import { CreatUserComponent } from './components/creat-user/creat-user.component';
 import { ListUserComponent } from './components/list-user/list-user.component';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ListUserComponent } from './components/list-user/list-user.component';
     SidebarComponent,
     ResponsableTechniqueComponent,
     CreatUserComponent,
-    ListUserComponent
+    ListUserComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { User } from "../../models/user.model";
+import {HttpClient} from "@angular/common/http";
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-list-user',
@@ -9,8 +11,9 @@ import { User } from "../../models/user.model";
 })
 export class ListUserComponent implements OnInit {
     users: User[] = [];
-
-    constructor(private userService: AuthService) {}
+    constructor(private userService: AuthService,private http: HttpClient) {
+        this.loadUsers();
+    }
 
     ngOnInit(): void {
         this.userService.getUsers().subscribe(
@@ -24,4 +27,58 @@ export class ListUserComponent implements OnInit {
         );
 
     }
+
+    // suppression user
+
+    loadUsers(): void {
+        this.userService.getUsers().subscribe((users) => {
+            this.users = users;
+        });
+    }
+    // Fonction appelée lorsqu'on clique sur le bouton de suppression
+    deleteUser(userId: number): void {
+        // SweetAlert pour confirmation
+        Swal.fire({
+            title: "Confirmation?",
+            text: "Voulez-vous vraiment supprimer cet utilisateur ? Cette action est irréversible !",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Oui, supprimer!",
+            cancelButtonText: "Annuler"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si l'utilisateur confirme la suppression, on fait appel à l'API
+                this.userService.deleteUser(userId).subscribe({
+                    next: (response) => {
+                        // Notification de succès avec SweetAlert
+                        Swal.fire({
+                            title: "Supprimé!",
+                            text: "L'utilisateur a été supprimé avec succès.",
+                            icon: "success"
+                        });
+                        // Actualiser la liste des utilisateurs après la suppression
+                        this.loadUsers();
+                    },
+                    error: (error) => {
+                        // Notification d'erreur avec SweetAlert
+                        Swal.fire({
+                            title: "Erreur!",
+                            text: "Il y a eu une erreur lors de la suppression de l'utilisateur.",
+                            icon: "error"
+                        });
+                    }
+                });
+            } else {
+                // L'utilisateur a annulé la suppression
+                Swal.fire({
+                    title: "Annulé",
+                    text: "La suppression de l'utilisateur a été annulée.",
+                    icon: "info"
+                });
+            }
+        });
+    }
+
 }
