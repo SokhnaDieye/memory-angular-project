@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard Senio manager</title>
+</head>
+<body class="sb-nav-fixed">
+<app-header></app-header>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Tables</h1>
+
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-table me-1"></i>
+                            Table Client
+                        </div>
+                        <button class="btn btn-primary mb-3" (click)="openClientModal()">Ajouter un Client</button>
+                    </div>
+                    <div class="card-body">
+                <table class="table" id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Address</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let client of clients">
+                        <td>{{ client.id }}</td>
+                        <td>{{ client.name }}</td>
+                        <td>{{ client.contact_email }}</td>
+                        <td>{{ client.contact_phone }}</td>
+                        <td>{{ client.address }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal pour ajouter un nouveau client -->
+            <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="clientModalLabel">Ajouter un Client</h5>
+                            <button type="button" class="btn-close" (click)="closeClientModal()" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="newClientForm" (ngSubmit)="onSubmit()">
+                                <div class="mb-3">
+                                    <label for="client_name" class="form-label">Nom</label>
+                                    <input type="text" id="client_name" formControlName="name" class="form-control" placeholder="Nom du client" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="client_email" class="form-label">Email</label>
+                                    <input type="email" id="client_email" formControlName="contact_email" class="form-control" placeholder="Email" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="client_phone" class="form-label">Téléphone</label>
+                                    <input type="text" id="client_phone" formControlName="contact_phone" class="form-control" placeholder="Téléphone" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="client_phone" class="form-label">Adresse</label>
+                                    <input type="text" id="address" formControlName="address" class="form-control" placeholder="Address" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" (click)="closeClientModal()">Annuler</button>
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </main>
+
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Facturix 2024</div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+</body>
+</html>
+

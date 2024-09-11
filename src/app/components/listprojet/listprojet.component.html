@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard Senio manager</title>
+</head>
+<body class="sb-nav-fixed">
+<app-header></app-header>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Projets</h1>
+
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-table me-1"></i>
+                            Liste des Projets
+                        </div>
+                        <!-- Bouton pour ouvrir le modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#projectModal">
+                            Nouveau Projet
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>Nom du Projet</th>
+                                <th>Date de Début</th>
+                                <th>Statut</th>
+                                <th>Budget Initial</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let project of projects">
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.start_date | date }}</td>
+                                <td>{{ project.status }}</td>
+                                <td>{{ project.budget_initial | currency:'':'':'1.0-0' }} F CFA</td>
+                                <td>
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-success btn-sm" type="button"  title="Modifier" data-bs-toggle="modal" data-bs-target="#UpdateModal">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-danger btn-sm" type="button"  title="Supprimer">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-info btn-sm" (click)="openProjectDetails(project.id)" type="button" title="Détails">
+                                                <i class="fa fa-info-circle"></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Facturix 2024</div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+<app-projet></app-projet>
+</body>
+</html>
+

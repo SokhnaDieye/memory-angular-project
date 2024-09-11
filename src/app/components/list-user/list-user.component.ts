@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { User } from "../../models/user.model";
 import {HttpClient} from "@angular/common/http";
@@ -10,7 +10,9 @@ import Swal from 'sweetalert2';
     styleUrls: ['./list-user.component.css']
 })
 export class ListUserComponent implements OnInit {
+    @Input()
     users: User[] = [];
+    selectedUser!: User;
     constructor(private userService: AuthService,private http: HttpClient) {
         this.loadUsers();
     }
@@ -29,12 +31,12 @@ export class ListUserComponent implements OnInit {
     }
 
     // suppression user
-
     loadUsers(): void {
         this.userService.getUsers().subscribe((users) => {
             this.users = users;
         });
     }
+
     // Fonction appelée lorsqu'on clique sur le bouton de suppression
     deleteUser(userId: number): void {
         // SweetAlert pour confirmation
@@ -81,4 +83,8 @@ export class ListUserComponent implements OnInit {
         });
     }
 
+// Fonction pour ouvrir le modal avec l'utilisateur sélectionné
+    openEditModal(user: User): void {
+        this.selectedUser = user;
+    }
 }

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard Sénior Manager</title>
+</head>
+<body class="sb-nav-fixed">
+<app-header></app-header>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Tables</h1>
+
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-table me-1"></i>
+                            Table Milestone
+                        </div>
+                        <button class="btn btn-primary mb-3" (click)="openMilestoneModal()">Ajouter un Milestone</button>
+                    </div>
+                    <div class="card-body">
+                <table class="table" id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Date d'échéance</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let milestone of milestones">
+                        <td>{{ milestone.name }}</td>
+                        <td>{{ milestone.date_echeance | date }}</td>
+                        <td>{{ milestone.status }}</td>
+                        <td>
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                    <button class="btn btn-success btn-sm" (click)="openMilestoneModal(milestone)" type="button"  title="Modifier" >
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </li>
+                                <li class="list-inline-item">
+                                    <button class="btn btn-danger btn-sm" type="button"  title="Supprimer">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal pour ajouter ou modifier un milestone -->
+            <div class="modal fade" id="milestoneModal" tabindex="-1" aria-labelledby="milestoneModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="milestoneModalLabel">{{ selectedMilestone ? 'Modifier' : 'Ajouter' }} un Milestone</h5>
+                            <button type="button" class="btn-close" (click)="closeMilestoneModal()" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="newMilestoneForm" (ngSubmit)="selectedMilestone ? onUpdate() : onSubmit()">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nom</label>
+                                    <input type="text" id="name" formControlName="name" class="form-control" placeholder="Nom du milestone" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="project_id" class="form-label">Projet</label>
+                                    <select id="project_id" formControlName="project_id" class="form-select">
+                                        <option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="date_echeance" class="form-label">Date d'échéance</label>
+                                    <input type="date" id="date_echeance" formControlName="date_echeance" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Statut</label>
+                                    <select id="status" formControlName="status" class="form-select">
+                                        <option value="En cours">En cours</option>
+                                        <option value="Non commence">Non commencé</option>
+                                        <option value="Complet">Complet</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" (click)="closeMilestoneModal()">Annuler</button>
+                                    <button type="submit" class="btn btn-primary">{{ selectedMilestone ? 'Mettre à jour' : 'Ajouter' }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+        </main>
+
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Facturix 2024</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

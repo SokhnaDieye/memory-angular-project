@@ -12,10 +12,14 @@ import { AcceuilComponent } from './components/acceuil/acceuil.component';
 import { DashboarComponent } from './components/dashboar/dashboar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ResponsableTechniqueComponent } from './components/responsable-technique/responsable-technique.component';
 import { CreatUserComponent } from './components/creat-user/creat-user.component';
 import { ListUserComponent } from './components/list-user/list-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { ProjetComponent } from './components/projet/projet.component';
+import { ListprojetComponent } from './components/listprojet/listprojet.component';
+import { ClientComponent } from './components/client/client.component';
+import { MilestoneComponent } from './components/milestone/milestone.component';
+import { DetailProjetComponent } from './components/detail-projet/detail-projet.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +30,14 @@ import { UpdateUserComponent } from './components/update-user/update-user.compon
     DashboarComponent,
     HeaderComponent,
     SidebarComponent,
-    ResponsableTechniqueComponent,
     CreatUserComponent,
     ListUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    ProjetComponent,
+    ListprojetComponent,
+    ClientComponent,
+    MilestoneComponent,
+    DetailProjetComponent
   ],
   imports: [
     BrowserModule,

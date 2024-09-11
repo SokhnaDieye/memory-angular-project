@@ -5,18 +5,27 @@ import {AcceuilComponent} from "./components/acceuil/acceuil.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {DashboarComponent} from "./components/dashboar/dashboar.component";
 import { authGuard } from './auth.guard';
-import {ResponsableTechniqueComponent} from "./components/responsable-technique/responsable-technique.component";
 import {ListUserComponent} from "./components/list-user/list-user.component";
+import {ProjetComponent} from "./components/projet/projet.component";
+import {ListprojetComponent} from "./components/listprojet/listprojet.component";
+import {ClientComponent} from "./components/client/client.component";
+import {MilestoneComponent} from "./components/milestone/milestone.component";
+import {DetailProjetComponent} from "./components/detail-projet/detail-projet.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch:'full'},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'acceuil', component: AcceuilComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'dashboard', component: DashboarComponent},
-  { path: 'responsableTechnique', component: ResponsableTechniqueComponent},
+  { path: 'dashboard', component: AcceuilComponent},
   { path: 'listeUser', component: ListUserComponent},
-  { path: '**', redirectTo: 'login' }  // Redirection vers la page de connexion pour les routes inconnues
+  { path: 'project', component: ProjetComponent},
+  { path: 'listproject', component: ListprojetComponent},
+  { path: 'client', component: ClientComponent},
+  { path: 'milestones', component: MilestoneComponent},
+  { path: 'detailsProjet/:id', component: DetailProjetComponent },
+
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

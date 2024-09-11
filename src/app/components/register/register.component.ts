@@ -28,14 +28,12 @@ export class RegisterComponent implements OnInit {
       password_confirmation: ['', [Validators.required]],
       role: ['', [Validators.required]]
     });
-
+    this.loadUsers();
   }
 
   loadUsers(): void {
     this.authService.getUsers().subscribe((users) => {
       this.users = users;
-      // Forcer la détection des changements
-      this.cdRef.detectChanges();
     });
   }
   onSubmit(): void {
@@ -53,9 +51,9 @@ export class RegisterComponent implements OnInit {
           const modal = (window as any).bootstrap.Modal.getInstance(modalElement);
           modal.hide();
         }
-
-        /*this.router.navigate(['/listeUser']);*/
         this.loadUsers();
+        this.router.navigate(['/listeUser']);
+
 
       },
       error: (error) => {

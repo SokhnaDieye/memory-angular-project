@@ -24,11 +24,13 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: (response) => {
         console.log('Connexion réussie', response);
-        const role = response.user.role;  // Récupérer le rôle de la réponse
+        const role = response.user.role;
         if (role === 'SeniorManager') {
           this.router.navigate(['/acceuil']);
         } else if (role === 'ResponsableTechnique') {
-          this.router.navigate(['/responsableTechnique']); // Rediriger selon le rôle
+          this.router.navigate(['/acceuil']);
+        }else if (role === 'ResponsableFinancier') {
+          this.router.navigate(['/acceuil']);
         } else {
           this.router.navigate(['/login']);
         }

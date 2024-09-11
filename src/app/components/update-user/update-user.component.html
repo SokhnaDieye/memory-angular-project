@@ -1,1 +1,40 @@
-<p>update-user works!</p>
+<div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="UpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UpdateModalLabel">Modification Utilisateur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+                    <div class="input-group mb-3">
+                        <input formControlName="name" type="text" class="form-control" placeholder="Nom">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input formControlName="email" type="email" class="form-control" placeholder="Adresse email">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input formControlName="password" type="password" class="form-control" placeholder="Mot de passe">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <select formControlName="role" class="form-control">
+                            <option value="" disabled selected>Choisissez un rôle</option>
+                            <option value="ResponsableTechnique">Responsable Technique</option>
+                            <option value="ResponsableFinancier">Responsable Financier</option>
+                        </select>
+                    </div>
+
+                    <!-- Boutons -->
+                    <div class="d-flex justify-content-center mb-3">
+                        <button class="btn btn-primary" type="submit" [disabled]="updateForm.invalid">Modifier</button>
+                        <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
