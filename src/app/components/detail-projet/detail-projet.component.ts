@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../../services/project.service";
 import {ClientService} from "../../services/client.service";
 
@@ -16,7 +16,8 @@ export class DetailProjetComponent implements OnInit {
   constructor(
       private route: ActivatedRoute,
       private projectService: ProjectService,
-      private clientService: ClientService
+      private clientService: ClientService,
+      private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +62,9 @@ export class DetailProjetComponent implements OnInit {
       description: '',
       status: ''
     });
+  }
+  quitter(){
+    this.router.navigate(['/listproject']);
   }
 
   // Supprimer un milestone

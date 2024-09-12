@@ -32,8 +32,9 @@ export class ProjetComponent implements OnInit {
       client_id: [null, Validators.required], // ID du client sélectionné
       budget_initial: [null, [Validators.required, Validators.min(0)]],
       start_date: ['', Validators.required],
+      end_date: ['', Validators.required],
       status: ['', Validators.required],
-      client_name: [''], // Champs pour le nouveau client
+      client_name: [''],
       client_email: [''],
       client_phone: ['']
     });

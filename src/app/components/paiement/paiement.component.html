@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard Senio manager</title>
+</head>
+<body class="sb-nav-fixed">
+<app-header></app-header>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Paiement</h1>
+
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-table me-1"></i>
+                            Liste des Projets
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>Nom du Projet</th>
+                                <th>Date de Début</th>
+                                <th>Date de Fin</th>
+                                <th>Statut</th>
+                                <th>Budget Initial</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let project of projects">
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.start_date | date }}</td>
+                                <td>{{ project.end_date | date }}</td>
+                                <td>{{ project.status }}</td>
+                                <td>{{ project.budget_initial | currency:'':'':'1.0-0' }} F CFA</td>
+                                <!--<td>
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-info btn-sm" (click)="openProjectDetails(project.id)" type="button" title="Détails">
+                                                <i class="fa fa-info-circle"></i>
+                                            </button>
+                                            <button class="btn btn-success m-2" (click)="openPaymentModal(project.id)" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                                Payer
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </td>-->
+                                <td>
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-info btn-sm" (click)="openProjectDetails(project.id)" type="button" title="Détails">
+                                                <i class="fa fa-info-circle"></i>
+                                            </button>
+                                            <button *ngIf="!project.is_paid" class="btn btn-success m-2" (click)="openPaymentModal(project.id)" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                                Payer
+                                            </button>
+                                            <button *ngIf="project.is_paid" class="btn btn-secondary m-2" disabled>
+                                                <i class="fa fa-check-circle"></i> Déjà payé
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Facturix 2024</div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+<app-projet></app-projet>
+
+<!-- Modal de paiement -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Paiement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="client" class="form-label">Client</label>
+                        <input type="text" class="form-control" id="client" [value]="clientName" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Montant Reçu</label>
+                        <input type="number" class="form-control" id="amount" [(ngModel)]="paymentData.amount_received">
+                    </div>
+                    <div class="mb-3">
+                        <label for="paymentDate" class="form-label">Date du Paiement</label>
+                        <input type="date" class="form-control" id="paymentDate" [(ngModel)]="paymentData.payment_date">
+                    </div>
+                    <div class="mb-3">
+                        <label for="paymentType" class="form-label">Type de Paiement</label>
+                        <select class="form-select" [(ngModel)]="paymentData.payment_type">
+                            <option value="Carte">Carte</option>
+                            <option value="Virement">Virement</option>
+                            <option value="Especes">Espèces</option>
+                            <option value="Especes">Chèque</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="transactionRef" class="form-label">Référence Transaction</label>
+                        <input type="text" class="form-control" id="transactionRef" [(ngModel)]="paymentData.transaction_reference">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" (click)="submitPayment()">Confirmer Paiement</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

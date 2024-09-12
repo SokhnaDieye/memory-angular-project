@@ -20,6 +20,7 @@ import { ListprojetComponent } from './components/listprojet/listprojet.componen
 import { ClientComponent } from './components/client/client.component';
 import { MilestoneComponent } from './components/milestone/milestone.component';
 import { DetailProjetComponent } from './components/detail-projet/detail-projet.component';
+import { PaiementComponent } from './components/paiement/paiement.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DetailProjetComponent } from './components/detail-projet/detail-projet.
     ListprojetComponent,
     ClientComponent,
     MilestoneComponent,
-    DetailProjetComponent
+    DetailProjetComponent,
+    PaiementComponent
   ],
   imports: [
     BrowserModule,

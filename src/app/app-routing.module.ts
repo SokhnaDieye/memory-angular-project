@@ -11,6 +11,7 @@ import {ListprojetComponent} from "./components/listprojet/listprojet.component"
 import {ClientComponent} from "./components/client/client.component";
 import {MilestoneComponent} from "./components/milestone/milestone.component";
 import {DetailProjetComponent} from "./components/detail-projet/detail-projet.component";
+import {PaiementComponent} from "./components/paiement/paiement.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch:'full'},
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'listproject', component: ListprojetComponent},
   { path: 'client', component: ClientComponent},
   { path: 'milestones', component: MilestoneComponent},
+  { path: 'paiement', component: PaiementComponent},
   { path: 'detailsProjet/:id', component: DetailProjetComponent },
 
   { path: '**', redirectTo: 'login' }

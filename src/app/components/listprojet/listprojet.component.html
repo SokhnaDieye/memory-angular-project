@@ -36,6 +36,7 @@
                             <tr>
                                 <th>Nom du Projet</th>
                                 <th>Date de Début</th>
+                                <th>Date de Fin</th>
                                 <th>Statut</th>
                                 <th>Budget Initial</th>
                                 <th>Actions</th>
@@ -45,6 +46,7 @@
                             <tr *ngFor="let project of projects">
                                 <td>{{ project.name }}</td>
                                 <td>{{ project.start_date | date }}</td>
+                                <td>{{ project.end_date | date }}</td>
                                 <td>{{ project.status }}</td>
                                 <td>{{ project.budget_initial | currency:'':'':'1.0-0' }} F CFA</td>
                                 <td>
