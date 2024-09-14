@@ -4,6 +4,7 @@ import {ProjectService} from "../../services/project.service";
 import {PaiementService} from "../../services/paiement.service";
 import {ClientService} from "../../services/client.service";
 
+
 @Component({
   selector: 'app-paiement',
   templateUrl: './paiement.component.html',
@@ -54,19 +55,42 @@ export class PaiementComponent implements OnInit{
   }
 
 
+
   submitPayment(): void {
-    if (this.paymentData.project_id && this.paymentData.client_id && this.paymentData.amount_received) {
-      this.paymentService.createPayment(this.paymentData).subscribe((response) => {
-        console.log('Paiement enregistré avec succès', response);
-        console.log('Id projet :',this.paymentData.project_id)
-        console.log('Id client :',this.paymentData.client_id)
-      }, (error) => {
-        console.error('Erreur lors de l\'enregistrement du paiement', error);
-      });
+    console.log(this.paymentData); // Afficher les données du formulaire pour debug
+
+    // Vérifier que tous les champs nécessaires sont remplis
+    if (
+      this.paymentData.project_id &&
+      this.paymentData.client_id &&
+      this.paymentData.amount_received &&
+      this.paymentData.payment_date &&
+      this.paymentData.payment_type &&
+      this.paymentData.transaction_reference
+    ) {
+      this.paymentService.createPayment(this.paymentData).subscribe(
+        (response) => {
+          console.log('Paiement enregistré avec succès', response);
+
+          // Mettre à jour la liste des projets
+          this.getProjects();
+
+          // Fermer le modal
+          const modalElement = document.getElementById('paymentModal');
+          if (modalElement) {
+            modalElement.classList.remove('show');
+          }
+        },
+        (error) => {
+          console.error('Erreur lors de l\'enregistrement du paiement', error);
+        }
+      );
     } else {
-      console.error('Les données de paiement sont incomplètes');
+      console.error('Les données de paiement sont incomplètes', this.paymentData);
     }
   }
+
+
 
 
 }

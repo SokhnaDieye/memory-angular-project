@@ -45,28 +45,16 @@
                                 <td>{{ project.end_date | date }}</td>
                                 <td>{{ project.status }}</td>
                                 <td>{{ project.budget_initial | currency:'':'':'1.0-0' }} F CFA</td>
-                                <!--<td>
-                                    <ul class="list-inline m-0">
-                                        <li class="list-inline-item">
-                                            <button class="btn btn-info btn-sm" (click)="openProjectDetails(project.id)" type="button" title="Détails">
-                                                <i class="fa fa-info-circle"></i>
-                                            </button>
-                                            <button class="btn btn-success m-2" (click)="openPaymentModal(project.id)" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                                                Payer
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </td>-->
                                 <td>
                                     <ul class="list-inline m-0">
                                         <li class="list-inline-item">
                                             <button class="btn btn-info btn-sm" (click)="openProjectDetails(project.id)" type="button" title="Détails">
                                                 <i class="fa fa-info-circle"></i>
                                             </button>
-                                            <button *ngIf="!project.is_paid" class="btn btn-success m-2" (click)="openPaymentModal(project.id)" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                            <button *ngIf="!project.isPaid" class="btn btn-success m-2" (click)="openPaymentModal(project.id)" data-bs-toggle="modal" data-bs-target="#paymentModal">
                                                 Payer
                                             </button>
-                                            <button *ngIf="project.is_paid" class="btn btn-secondary m-2" disabled>
+                                            <button *ngIf="project.isPaid" class="btn btn-secondary m-2" disabled>
                                                 <i class="fa fa-check-circle"></i> Déjà payé
                                             </button>
                                         </li>
@@ -107,27 +95,35 @@
                         <label for="client" class="form-label">Client</label>
                         <input type="text" class="form-control" id="client" [value]="clientName" disabled>
                     </div>
-                    <div class="mb-3">
-                        <label for="amount" class="form-label">Montant Reçu</label>
-                        <input type="number" class="form-control" id="amount" [(ngModel)]="paymentData.amount_received">
-                    </div>
-                    <div class="mb-3">
-                        <label for="paymentDate" class="form-label">Date du Paiement</label>
-                        <input type="date" class="form-control" id="paymentDate" [(ngModel)]="paymentData.payment_date">
-                    </div>
-                    <div class="mb-3">
-                        <label for="paymentType" class="form-label">Type de Paiement</label>
-                        <select class="form-select" [(ngModel)]="paymentData.payment_type">
-                            <option value="Carte">Carte</option>
-                            <option value="Virement">Virement</option>
-                            <option value="Especes">Espèces</option>
-                            <option value="Especes">Chèque</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="transactionRef" class="form-label">Référence Transaction</label>
-                        <input type="text" class="form-control" id="transactionRef" [(ngModel)]="paymentData.transaction_reference">
-                    </div>
+                  <!-- Champ Montant Reçu -->
+                  <div class="mb-3">
+                    <label for="amount" class="form-label">Montant Reçu</label>
+                    <input type="number" class="form-control" id="amount" [(ngModel)]="paymentData.amount_received" name="amount_received" required>
+                  </div>
+
+                  <!-- Champ Date de Paiement -->
+                  <div class="mb-3">
+                    <label for="paymentDate" class="form-label">Date du Paiement</label>
+                    <input type="date" class="form-control" id="paymentDate" [(ngModel)]="paymentData.payment_date" name="payment_date" required>
+                  </div>
+
+                  <!-- Champ Type de Paiement -->
+                  <div class="mb-3">
+                    <label for="paymentType" class="form-label">Type de Paiement</label>
+                    <select class="form-select" [(ngModel)]="paymentData.payment_type" name="payment_type" required>
+                      <option value="Carte">Carte</option>
+                      <option value="Virement">Virement</option>
+                      <option value="Especes">Espèces</option>
+                      <option value="Cheque">Chèque</option>
+                    </select>
+                  </div>
+
+                  <!-- Champ Référence Transaction -->
+                  <div class="mb-3">
+                    <label for="transactionRef" class="form-label">Référence Transaction</label>
+                    <input type="text" class="form-control" id="transactionRef" [(ngModel)]="paymentData.transaction_reference" name="transaction_reference" required>
+                  </div>
+
                 </form>
             </div>
             <div class="modal-footer">
