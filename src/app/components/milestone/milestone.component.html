@@ -33,6 +33,8 @@
                     <tr>
                         <th>Nom</th>
                         <th>Date d'échéance</th>
+                        <th>Description</th>
+                        <th>Montant </th>
                         <th>Statut</th>
                         <th>Actions</th>
                     </tr>
@@ -41,6 +43,8 @@
                     <tr *ngFor="let milestone of milestones">
                         <td>{{ milestone.name }}</td>
                         <td>{{ milestone.date_echeance | date }}</td>
+                        <td>{{ milestone.description}}</td>
+                        <td>{{ milestone.montant_facture  | currency:'':'':'1.0-0'}} F CFA</td>
                         <td>{{ milestone.status }}</td>
                         <td>
                             <ul class="list-inline m-0">
@@ -82,8 +86,16 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <input type="date" id="description" formControlName="description" class="form-control" />
+                                </div>
+                                <div class="mb-3">
                                     <label for="date_echeance" class="form-label">Date d'échéance</label>
                                     <input type="date" id="date_echeance" formControlName="date_echeance" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="montant_facture" class="form-label">Budget</label>
+                                    <input type="number" id="montant_facture" formControlName="montant_facture" class="form-control" placeholder="Budget " />
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Statut</label>

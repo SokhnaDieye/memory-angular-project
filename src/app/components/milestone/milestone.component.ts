@@ -32,7 +32,8 @@ export class MilestoneComponent implements OnInit {
       name: ['', Validators.required],
       project_id: ['', Validators.required],
       date_echeance: ['', Validators.required],
-      status: ['', Validators.required]
+      status: ['', Validators.required],
+      montant_facture: ['', Validators.required]
     });
   }
 
