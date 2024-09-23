@@ -21,6 +21,7 @@ import { ClientComponent } from './components/client/client.component';
 import { MilestoneComponent } from './components/milestone/milestone.component';
 import { DetailProjetComponent } from './components/detail-projet/detail-projet.component';
 import { PaiementComponent } from './components/paiement/paiement.component';
+import { PaymentReminderComponent } from './payment-reminder/payment-reminder.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PaiementComponent } from './components/paiement/paiement.component';
     ClientComponent,
     MilestoneComponent,
     DetailProjetComponent,
-    PaiementComponent
+    PaiementComponent,
+    PaymentReminderComponent
   ],
   imports: [
     BrowserModule,

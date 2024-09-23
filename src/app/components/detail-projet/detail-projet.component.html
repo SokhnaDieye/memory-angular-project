@@ -82,18 +82,18 @@
                             <tr>
                                 <th>Milestone</th>
                                 <th>Description</th>
+                                <th>Montant</th>
+                                <th>Date Echeance</th>
                                 <th>Statut</th>
-                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let milestone of milestones">
-                                <td><input type="text" class="form-control" [(ngModel)]="milestone.name"></td>
-                                <td><input type="text" class="form-control" [(ngModel)]="milestone.description"></td>
-                                <td><input type="text" class="form-control" [(ngModel)]="milestone.status"></td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm" (click)="removeMilestone(milestone)">Supprimer</button>
-                                </td>
+                                <td><input  type="text" class="form-control" [(ngModel)]="milestone.name"></td>
+                                <td><input  type="text" class="form-control" [(ngModel)]="milestone.description"></td>
+                                <td><input  type="text" class="form-control" [(ngModel)]="milestone.montant_facture"></td>
+                                <td><input  type="text" class="form-control" [(ngModel)]="milestone.date_echeance"></td>
+                                <td><input  type="text" class="form-control" [(ngModel)]="milestone.status"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="mt-4 offset-4 align-content-center">
-                    <button style="background-color: #4f84b5" class="btn m-3"> Sauvegarder</button>
+                    <button style="background-color: #4f84b5" class="btn m-3" (click)="sauvegarde()"> Sauvegarder</button>
                     <button style="background-color: #4f84b5" (click)="quitter()" class="btn "> Quiter</button>
                 </div>
             </div>

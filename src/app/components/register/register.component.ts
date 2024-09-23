@@ -40,26 +40,27 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-
     const user = this.registerForm.value;
     this.authService.register(user).subscribe({
       next: (response) => {
         console.log('Inscription réussie', response);
-
-        const modalElement = document.getElementById('registerModal');
-        if (modalElement) {
-          const modal = (window as any).bootstrap.Modal.getInstance(modalElement);
-          modal.hide();
-        }
+        this.closeUserModal();
+        location.reload();
         this.loadUsers();
-        this.router.navigate(['/listeUser']);
-
-
       },
       error: (error) => {
         this.errorMessage = 'Erreur lors de l\'inscription';
         console.error('Erreur lors de l\'inscription', error);
       }
     });
+  }
+
+  closeUserModal() {
+    const modal = document.getElementById('registerModal');
+    if (modal) {
+      modal.style.display = 'none';
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+    }
   }
 }

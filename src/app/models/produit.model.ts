@@ -5,4 +5,5 @@ export interface Project {
     budget_initial: number;
     start_date: string;
     status: string;
+    end_date:string;
 }

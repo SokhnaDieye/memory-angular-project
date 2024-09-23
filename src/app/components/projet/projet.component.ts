@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from "../../services/client.service";
 import { Project } from 'src/app/models/produit.model';
 import { Client } from 'src/app/models/Client.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-projet',
@@ -19,7 +20,8 @@ export class ProjetComponent implements OnInit {
   constructor(
       private projectService: ProjectService,
       private clientService: ClientService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private router: Router
   ) {}
 
   ngOnInit() {
@@ -75,10 +77,14 @@ export class ProjetComponent implements OnInit {
         newProject.client_id = clientResponse.id;
 
         this.createProject(newProject);
+        // Rafraîchir la liste des projets
       });
     } else {
       // Créer directement le projet si aucun nouveau client n'est ajouté
       this.createProject(newProject);
+      // Rafraîchir la liste des projets
+      this.loadProjects();
+      this.router.navigate(['/listproject']);
     }
   }
 
@@ -95,6 +101,7 @@ export class ProjetComponent implements OnInit {
 
       // Rafraîchir la liste des projets
       this.loadProjects();
+      this.router.navigate(['/listproject']);
 
       // Réinitialiser le formulaire
       this.newProjectForm.reset();

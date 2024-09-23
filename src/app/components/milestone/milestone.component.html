@@ -43,11 +43,13 @@
                     <tr *ngFor="let milestone of milestones">
                         <td>{{ milestone.name }}</td>
                         <td>{{ milestone.date_echeance | date }}</td>
-                        <td>{{ milestone.description}}</td>
-                        <td>{{ milestone.montant_facture  | currency:'':'':'1.0-0'}} F CFA</td>
+                      <td style="word-wrap: break-word; max-width: 200px;">
+                        {{ milestone.description }}
+                      </td>
+                      <td>{{ milestone.montant_facture  | currency:'':'':'1.0-0'}} F CFA</td>
                         <td>{{ milestone.status }}</td>
                         <td>
-                            <ul class="list-inline m-0">
+                            <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <button class="btn btn-success btn-sm" (click)="openMilestoneModal(milestone)" type="button"  title="Modifier" >
                                         <i class="fa fa-edit"></i>
@@ -87,7 +89,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <input type="date" id="description" formControlName="description" class="form-control" />
+                                    <input type="text" id="description" formControlName="description" class="form-control" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="date_echeance" class="form-label">Date d'échéance</label>
@@ -102,10 +104,9 @@
                                     <select id="status" formControlName="status" class="form-select">
                                         <option value="En cours">En cours</option>
                                         <option value="Non commence">Non commencé</option>
-                                        <option value="Complet">Complet</option>
                                     </select>
                                 </div>
-                                <div class="modal-footer">
+                                <div class="modal-footer  justify-content-center">
                                     <button type="button" class="btn btn-secondary" (click)="closeMilestoneModal()">Annuler</button>
                                     <button type="submit" class="btn btn-primary">{{ selectedMilestone ? 'Mettre à jour' : 'Ajouter' }}</button>
                                 </div>

@@ -32,6 +32,7 @@ export class MilestoneComponent implements OnInit {
       name: ['', Validators.required],
       project_id: ['', Validators.required],
       date_echeance: ['', Validators.required],
+      description: ['', Validators.required],
       status: ['', Validators.required],
       montant_facture: ['', Validators.required]
     });
@@ -40,9 +41,21 @@ export class MilestoneComponent implements OnInit {
   // Charger les milestones depuis le service
   loadMilestones() {
     this.milestoneService.getMilestones().subscribe(milestones => {
-      this.milestones = milestones;
+      const today = new Date(); // Récupère la date actuelle
+      this.milestones = milestones.map(milestone => {
+        // Convertit la date d'échéance en objet Date
+        const dueDate = new Date(milestone.date_echeance);
+
+        // Vérifie si la date d'échéance est aujourd'hui ou déjà passée
+        if (dueDate <= today) {
+          milestone.status = 'Complete'; // Met à jour le statut
+        }
+
+        return milestone;
+      });
     });
   }
+
 
   // Charger les projets depuis le service
   loadProjects() {
@@ -80,7 +93,7 @@ export class MilestoneComponent implements OnInit {
   }
 
   // Soumettre le formulaire pour ajouter un nouveau milestone
-  onSubmit() {
+  /*onSubmit() {
     if (this.newMilestoneForm.invalid) {
       return;
     }
@@ -99,6 +112,28 @@ export class MilestoneComponent implements OnInit {
       // Réinitialiser le formulaire
       this.newMilestoneForm.reset();
     });
+  }*/
+
+  onSubmit() {
+    if (this.newMilestoneForm.invalid) {
+      console.error('Le formulaire est invalide', this.newMilestoneForm.errors);
+      return;
+    }
+
+    const newMilestone = this.newMilestoneForm.value;
+    console.log('Données du nouveau milestone :', newMilestone);
+
+    this.milestoneService.createMilestone(newMilestone).subscribe(
+      response => {
+        console.log('Milestone ajouté avec succès !', response);
+        this.closeMilestoneModal();
+        this.loadMilestones();
+        this.newMilestoneForm.reset();
+      },
+      error => {
+        console.error('Erreur lors de l\'ajout du milestone :', error);
+      }
+    );
   }
 
   // Mettre à jour un milestone existant

@@ -35,16 +35,18 @@
                                 <th>Date de Fin</th>
                                 <th>Statut</th>
                                 <th>Budget Initial</th>
+                                <th>Budget real</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let project of projects">
-                                <td>{{ project.name }}</td>
+                                <td style="word-wrap: break-word; max-width: 200px;">{{ project.name }}</td>
                                 <td>{{ project.start_date | date }}</td>
                                 <td>{{ project.end_date | date }}</td>
                                 <td>{{ project.status }}</td>
                                 <td>{{ project.budget_initial | currency:'':'':'1.0-0' }} F CFA</td>
+                                <td>{{ project.budget_real | currency:'':'':'1.0-0' }} F CFA</td>
                                 <td>
                                     <ul class="list-inline m-0">
                                         <li class="list-inline-item">
@@ -57,6 +59,10 @@
                                             <button *ngIf="project.isPaid" class="btn btn-secondary m-2" disabled>
                                                 <i class="fa fa-check-circle"></i> Déjà payé
                                             </button>
+                                          <!-- Nouveau bouton "Relance" -->
+                                          <button *ngIf="!project.isPaid" class="btn btn-warning m-2" (click)="sendReminder(project.id)" title="Relancer le client">
+                                            <i class="fa fa-bell"></i>
+                                          </button>
                                         </li>
                                     </ul>
                                 </td>

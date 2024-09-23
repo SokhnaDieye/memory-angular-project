@@ -22,9 +22,38 @@ export class PaiementComponent implements OnInit{
   }
 
   // Récupérer les projets terminés
+  /*getProjects(): void {
+    this.projectService.getProjects().subscribe((data) => {
+      this.projects = data.filter(project => project.status === 'Termine');
+      this.projects.forEach(project => {
+        this.projectService.getProjectById(project.id).subscribe((response: any) => {
+          const milestones = response.milestones; // Assurez-vous que 'milestones' est bien un tableau dans la réponse de l'API
+          if (Array.isArray(milestones)) { // Vérifiez que 'milestones' est un tableau
+            project.budget_real = milestones.reduce((sum: number, milestone: any) => {
+              return sum + (milestone.montant_facture || 0); // Ajoutez la valeur ou 0 si elle est undefined
+            }, 0); // Initialiser à 0
+          } else {
+            project.budget_real = 0; // Si milestones n'est pas un tableau, fixer à 0
+          }
+        });
+      });
+    });
+  }*/
   getProjects(): void {
     this.projectService.getProjects().subscribe((data) => {
       this.projects = data.filter(project => project.status === 'Termine');
+      this.projects.forEach(project => {
+        this.projectService.getProjectById(project.id).subscribe((response: any) => {
+          const milestones = response.milestones; // Assurez-vous que 'milestones' est bien un tableau dans la réponse de l'API
+          if (Array.isArray(milestones)) { // Vérifiez que 'milestones' est un tableau
+            project.budget_real = milestones.reduce((sum: number, milestone: any) => {
+              return sum + (parseFloat(milestone.montant_facture) || 0); // Conversion en nombre
+            }, 0); // Initialiser à 0
+          } else {
+            project.budget_real = 0; // Si milestones n'est pas un tableau, fixer à 0
+          }
+        });
+      });
     });
   }
 
@@ -89,6 +118,25 @@ export class PaiementComponent implements OnInit{
       console.error('Les données de paiement sont incomplètes', this.paymentData);
     }
   }
+
+    sendReminder(projectId: number): void {
+        const selectedProject = this.projects.find(project => project.id === projectId);
+
+        if (selectedProject) {
+            this.projectService.sendReminder(selectedProject.id).subscribe(
+                response => {
+                    console.log('Relance envoyée avec succès', response);
+                    alert('Un email de relance a été envoyé au client.');
+                },
+                error => {
+                    console.error('Erreur lors de l\'envoi de la relance', error);
+                }
+            );
+        } else {
+            console.error('Impossible d\'envoyer la relance, projet non trouvé');
+        }
+    }
+
 
 
 

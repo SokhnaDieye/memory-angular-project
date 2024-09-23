@@ -12,6 +12,7 @@ import {ClientComponent} from "./components/client/client.component";
 import {MilestoneComponent} from "./components/milestone/milestone.component";
 import {DetailProjetComponent} from "./components/detail-projet/detail-projet.component";
 import {PaiementComponent} from "./components/paiement/paiement.component";
+import {PaymentReminderComponent} from "./payment-reminder/payment-reminder.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch:'full'},
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'milestones', component: MilestoneComponent},
   { path: 'paiement', component: PaiementComponent},
   { path: 'detailsProjet/:id', component: DetailProjetComponent },
+  { path: 'paymentReminder', component: PaymentReminderComponent },
 
   { path: '**', redirectTo: 'login' }
 ];

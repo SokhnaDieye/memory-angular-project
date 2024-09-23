@@ -22,6 +22,7 @@ export class ProjectService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+
   // Créer un nouveau projet
   createProject(project: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, project);
@@ -36,5 +37,10 @@ export class ProjectService {
   deleteProject(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+    sendReminder(projectId: number): Observable<any> {
+        return this.http.post(`${this.apiUrl}/${projectId}/reminder`, {});
+    }
+
 
 }
